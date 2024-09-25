@@ -16,18 +16,40 @@ Posts
         <input type="submit" value="Найти"/>
     </form>
     <hr>
+
+    {% if perms.boad.add_post %}
+        <a href="{% url 'post_create' %}">Добавить объявление</a>
+    {% endif %}
     {% if posts %}
-        <table>
-            <tr>
-                <td>Название</td>
-                <td>Категория</td>
-                <td>Автор</td>
+        <table cellpadding="10" width="95%" style="margin-top: 35px">
+            <tr BORDER BGCOLOR=pink>
+                <td><b>Категория</b></td>
+                <td><b>Заголовок</b></td>
+                <td><b>Объявление</b></td>
+                <td><b>Автор</b></td>
+
+                {% if perms.boad.change_post or perms.boad.delete_post %}
+                    <td>Действия</td>
+                {% endif %}    
             </tr>
             {% for post in posts %}
             <tr>
+                <td>
+                    {% for cat in post.category.all %}
+                        {{ cat.name_category }}
+                    {% endfor %}    
+                </td>
                 <td>{{ post.title }}</td>
-                <td>{{ post.category }}</td>
+                <td>{{ post.text }}</td>
                 <td>{{ post.author }}</td>
+                <td>
+                {% if perms.boad.change_post %}
+                    <a href="{% url 'post_update' pk=post.id %}">Изменить</a>
+                {% endif %}
+                {% if perms.boad.delete_post %}
+                    <a href="{% url 'post_delete' pk=post.id %}">Удалить</a>
+                {% endif %}  
+                </td>    
             </tr>
             {% endfor %}
         </table>

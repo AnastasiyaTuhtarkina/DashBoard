@@ -67,7 +67,7 @@ class ResponsesList(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = UserResponse.objects.filter(ad__author__id=self.request.user.id)
+        queryset = UserResponse.objects.filter(post__author__id=self.request.user.id)
         self.filterset = ResponseFilter(self.request.GET, queryset, author_id=self.request.user.id)
         return self.filterset.qs
 

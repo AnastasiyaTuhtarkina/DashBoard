@@ -72,7 +72,7 @@ class UserResponse(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='responses')
     text = models.TextField(verbose_name='Текст')
     status = models.BooleanField(default=False, verbose_name='Статус')
-    # date_reply = models.DateTimeField(auto_now_add=True, verbose_name='Дата отклика')
+    date_reply = models.DateTimeField(auto_now_add=True, verbose_name='Дата отклика')
 
     def __str__(self):
         return f'{self.author}: {self.text}'

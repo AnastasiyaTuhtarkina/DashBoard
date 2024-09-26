@@ -31,4 +31,4 @@ class ResponseFilter(FilterSet):
     def __init__(self, *args, **kwargs):
         author_id = kwargs.pop('author_id', None)
         super().__init__(*args, **kwargs)
-        self.filters['ad'].queryset = Post.objects.filter(author__id=author_id)    
+        self.filters['post'].queryset = Post.objects.filter(author__id=author_id)    
